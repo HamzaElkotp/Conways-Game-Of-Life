@@ -1,0 +1,9 @@
+class EngineSelectionPage:
+    def __init__(self, gui_manager) -> None:
+        ...
+    
+    def draw(self) -> None:
+        ...
+    
+    def handle_event(self, event) -> None:
+        ...
