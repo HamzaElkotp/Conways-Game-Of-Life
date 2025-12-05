@@ -1,11 +1,10 @@
 import tkinter as tk
-from tkinter import ttk
 
 from gui_manager import GUIManager
 
 def main():
     root = tk.Tk()
-    root.geometry("900x650")
+    root.geometry("1000x850")
     manager = GUIManager(root)
     root.mainloop()
 
