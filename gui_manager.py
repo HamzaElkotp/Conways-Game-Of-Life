@@ -1,5 +1,4 @@
 # gui_manager.py
-from typing import Type
 from typing import Tuple
 import tkinter as tk
 from typing import Tuple
