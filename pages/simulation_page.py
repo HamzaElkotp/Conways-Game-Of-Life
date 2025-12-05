@@ -2,16 +2,19 @@
 import tkinter as tk
 from tkinter import ttk
 
-from gui_manager import EngineName, GUIManager, Grid
+from typing import Tuple
+
 from rendering.grid_renderer import GridRenderer
 
+Grid = Tuple[Tuple[int]]
+EngineName = str
 
 from engines.functional_engine import next_generation as functional_next_generation
 from engines.imperative_engine import next_generation as imperative_next_generation
 
 
 class SimulationPage:
-    def __init__(self, manager: GUIManager, engine: EngineName, initial_grid: Grid):
+    def __init__(self, manager, engine: EngineName, initial_grid: Grid):
         self.manager = manager
         self.engine = engine
         self.grid = initial_grid
@@ -45,7 +48,7 @@ class SimulationPage:
 
         self._pan_start = None
         self.running = True
-        self.speed_ms = 200
+        self.speed_ms = 500
 
         # start timer loop
         self._after_id = None
@@ -103,6 +106,8 @@ class SimulationPage:
         self.schedule_next()
 
     def redraw(self):
+        print("from simpage")
+        print(self.grid)
         self.renderer.draw_grid(self.grid)
 
     def destroy(self):

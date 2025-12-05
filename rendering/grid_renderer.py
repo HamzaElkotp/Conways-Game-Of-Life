@@ -9,9 +9,8 @@ GridRenderer handles pixels.
 """
 from typing import Tuple
 import tkinter as tk
-from typing import Tuple
 
-Grid = Tuple[Tuple[int, ...], ...]
+Grid = Tuple[Tuple[int]]
 
 class GridRenderer:
     def __init__(self, canvas: tk.Canvas, cell_size: float = 12.0):
@@ -55,6 +54,7 @@ class GridRenderer:
 
     def draw_grid(self, grid: Grid) -> None:
         self.clear()
+        print(grid)
         rows = len(grid)
         cols = len(grid[0]) if rows > 0 else 0
         h = int(self.canvas.winfo_height())

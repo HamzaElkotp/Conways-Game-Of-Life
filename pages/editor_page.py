@@ -1,13 +1,15 @@
 # pages/editor_page.py
-from typing import List
+from typing import List, Tuple
 import tkinter as tk
 from tkinter import ttk
 
-from gui_manager import EngineName, GUIManager, Grid
 from rendering.grid_renderer import GridRenderer
 
+Grid = Tuple[Tuple[int, ...], ...]
+EngineName = str
+
 class EditorPage:
-    def __init__(self, manager: GUIManager, engine: EngineName, grid_size: int):
+    def __init__(self, manager, engine: EngineName, grid_size: int):
         self.manager = manager
         self.engine = engine
         self.grid_size = grid_size
@@ -88,6 +90,8 @@ class EditorPage:
         self.manager.switch_to_engine_selection()
 
     def redraw(self):
+        print("from editpage")
+        print(tuple(tuple(row) for row in self.buffer))
         self.renderer.draw_grid(tuple(tuple(row) for row in self.buffer))
 
     def get_configured_grid(self) -> Grid:

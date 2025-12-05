@@ -1,9 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
-from gui_manager import GUIManager
 
 class EngineSelectionPage:
-    def __init__(self, manager: GUIManager):
+    def __init__(self, manager):
         self.manager = manager
         self.root = manager.root
         self.frame = ttk.Frame(self.root, padding=12)
