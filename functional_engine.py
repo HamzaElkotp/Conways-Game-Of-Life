@@ -18,7 +18,14 @@ def get_cell(grid: Grid, row: int, col: int) -> int: # Nadeen
 
 def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
     """Return the number of live neighbors around a given cell."""
-    ...
+    neighbors = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+
+    neighbors_values = [get_cell(grid, row + dx, col + dy) for (dx, dy) in neighbors]
+
+    result = sum(neighbors_values)
+
+    return result
+    #...
 
 def next_state(current_state: int, neighbors: int) -> int: # Abdo
     """Return the next state (0 or 1) for a single cell."""
