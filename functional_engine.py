@@ -7,8 +7,14 @@ Grid = Tuple[Tuple[int, ...], ...]  # 0 = dead, 1 = alive
 #     ...
 
 def get_cell(grid: Grid, row: int, col: int) -> int: # Nadeen
-    """Returns the current state of the cell"""
-    ...
+   if row<0 or row>= len(grid):
+       return 0
+   elif col<0 or col>=len(grid[0]):
+       return 0
+   else: return grid[row][col]
+
+
+ #   ...
 
 def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
     """Return the number of live neighbors around a given cell."""
