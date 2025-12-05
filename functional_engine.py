@@ -18,6 +18,19 @@ def next_state(current_state: int, neighbors: int) -> int: # Abdo
     """Return the next state (0 or 1) for a single cell."""
     ...
 
-def next_generation(grid: Grid) -> Grid: # Mostafa, Yasmin
+def next_generation(Grid: Grid) -> Grid: # Mostafa, Yasmin
     """Return a new immutable grid representing the next generation."""
+    rows = len(Grid)
+    cols = len(Grid[0])
+
+    return tuple(
+            tuple(
+                next_state(
+                    get_cell(Grid, x, y),
+                    count_neighbors(Grid, x, y)
+                )
+                for y in range(cols)
+            )
+            for x in range(rows)
+        )
     ...
