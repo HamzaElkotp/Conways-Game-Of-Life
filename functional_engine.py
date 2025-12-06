@@ -2,9 +2,6 @@ from typing import Tuple
 
 Grid = Tuple[Tuple[int, ...], ...]  # 0 = dead, 1 = alive
 
-# def create_grid(rows: int, cols: int) -> Grid: # 
-#     """Create a new immutable grid with all cells dead."""
-#     ...
 
 def get_cell(grid: Grid, row: int, col: int) -> int: # Nadeen
    if row<0 or row>= len(grid):
@@ -15,7 +12,6 @@ def get_cell(grid: Grid, row: int, col: int) -> int: # Nadeen
 
 
 def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
-    """Return the number of live neighbors around a given cell."""
     neighbors = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
     neighbors_values = [get_cell(grid, row + dx, col + dy) for (dx, dy) in neighbors]
@@ -25,30 +21,39 @@ def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
     return result
 
 
-def count_neighbors_recursive(grid: Grid, row: int, col: int, indx=0:int) -> int: # Mostafa
+def count_neighbors_recursive(grid: Grid, row: int, col: int, indx:int = 0) -> int:
     neighbors = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
     # Your logic here
+    return 1
 
-    ...
 
+def next_state(current_state: int, neighbors: int):
+    if current_state == 1:
+        if neighbors < 2:
+            return 0
+        elif neighbors == 2 or neighbors == 3:
+            return 1
+        else:
+            return 0
+    else:
+        if neighbors == 3:
+            return 1
+        else:
+            return 0
 
-def next_state(current_state: int, neighbors: int) -> int: # Abdo
-    """Return the next state (0 or 1) for a single cell."""
-    ...
 
 def next_generation(grid: Grid) -> Grid: # Mostafa, Yasmin
-    """Return a new immutable grid representing the next generation."""
     rows = len(grid)
     cols = len(grid[0])
 
     return tuple(
-            tuple(
-                next_state(
-                    get_cell(grid, x, y),
-                    count_neighbors(grid, x, y)
-                )
-                for y in range(cols)
+        tuple(
+            next_state(
+                get_cell(grid, x, y),
+                count_neighbors(grid, x, y)
             )
-            for x in range(rows)
+            for y in range(cols)
         )
+        for x in range(rows)
+    )
