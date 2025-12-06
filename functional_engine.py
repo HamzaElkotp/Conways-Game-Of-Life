@@ -29,18 +29,15 @@ def count_neighbors_recursive(grid: Grid, row: int, col: int, indx:int = 0) -> i
 
 
 def next_state(current_state: int, neighbors: int):
-    if current_state == 1:
-        if neighbors < 2:
-            return 0
-        elif neighbors == 2 or neighbors == 3:
-            return 1
-        else:
-            return 0
-    else:
-        if neighbors == 3:
-            return 1
-        else:
-            return 0
+    if current_state == 1 and neighbors < 2: # (underpopulation)
+        return 0
+    elif current_state == 1 and (neighbors == 2 or neighbors == 3):
+        return 1
+    elif current_state == 1 and neighbors > 3: # (overpopulation)
+        return 0
+    elif current_state == 0 and neighbors == 3: # (reproduction)
+        return 1
+    return 0
 
 
 def next_generation(grid: Grid) -> Grid: # Mostafa, Yasmin
