@@ -13,6 +13,7 @@ def get_cell(grid: Grid, row: int, col: int) -> int: # Nadeen
        return 0
    else: return grid[row][col]
 
+
 def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
     """Return the number of live neighbors around a given cell."""
     neighbors = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
@@ -22,6 +23,15 @@ def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
     result = sum(neighbors_values)
 
     return result
+
+
+def count_neighbors_recursive(grid: Grid, row: int, col: int, indx=0:int) -> int: # Mostafa
+    neighbors = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+
+    # Your logic here
+
+    ...
+
 
 def next_state(current_state: int, neighbors: int) -> int: # Abdo
     """Return the next state (0 or 1) for a single cell."""
