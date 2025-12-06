@@ -13,9 +13,6 @@ def get_cell(grid: Grid, row: int, col: int) -> int: # Nadeen
        return 0
    else: return grid[row][col]
 
-
- #   ...
-
 def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
     """Return the number of live neighbors around a given cell."""
     neighbors = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
@@ -25,25 +22,23 @@ def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
     result = sum(neighbors_values)
 
     return result
-    #...
 
 def next_state(current_state: int, neighbors: int) -> int: # Abdo
     """Return the next state (0 or 1) for a single cell."""
     ...
 
-def next_generation(Grid: Grid) -> Grid: # Mostafa, Yasmin
+def next_generation(grid: Grid) -> Grid: # Mostafa, Yasmin
     """Return a new immutable grid representing the next generation."""
-    rows = len(Grid)
-    cols = len(Grid[0])
+    rows = len(grid)
+    cols = len(grid[0])
 
     return tuple(
             tuple(
                 next_state(
-                    get_cell(Grid, x, y),
-                    count_neighbors(Grid, x, y)
+                    get_cell(grid, x, y),
+                    count_neighbors(grid, x, y)
                 )
                 for y in range(cols)
             )
             for x in range(rows)
         )
-    ...
