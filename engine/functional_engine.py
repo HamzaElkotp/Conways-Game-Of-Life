@@ -22,10 +22,16 @@ def count_neighbors(grid: Grid, row: int, col: int) -> int: # Hend
 
 
 def count_neighbors_recursive(grid: Grid, row: int, col: int, indx:int = 0) -> int:
+    if indx >= 8:
+        return 0
+    
     neighbors = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
 
-    # Your logic here
-    return 1
+    return (
+        get_cell(grid, row + neighbors[indx][0], col + neighbors[indx][1])
+        +
+        count_neighbors_recursive(grid, row, col, indx+1)
+    )
 
 
 def next_state(current_state: int, neighbors: int):
