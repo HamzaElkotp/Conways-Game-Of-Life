@@ -33,7 +33,7 @@ class SimulationPage:
         self.canvas.pack(side="top", fill="both", expand=True)
 
         # renderer
-        self.renderer = GridRenderer(self.canvas, cell_size=14.0)
+        self.renderer = GridRenderer(self.canvas, cell_size=26.0)
         self.renderer.offset_x = 10.0
         self.renderer.offset_y = 10.0
 

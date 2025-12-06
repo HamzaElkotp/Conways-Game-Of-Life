@@ -30,7 +30,7 @@ class EditorPage:
         self.buffer: List[List[int]] = [[0]*self._cols for _ in range(self._rows)]
 
         # renderer
-        self.renderer = GridRenderer(self.canvas, cell_size=14.0)
+        self.renderer = GridRenderer(self.canvas, cell_size=26.0)
 
         # event handling
         self.canvas.bind("<Button-1>", self.on_left_click)   # toggle

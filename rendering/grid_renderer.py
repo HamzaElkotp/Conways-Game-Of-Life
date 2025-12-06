@@ -13,7 +13,7 @@ import tkinter as tk
 Grid = Tuple[Tuple[int]]
 
 class GridRenderer:
-    def __init__(self, canvas: tk.Canvas, cell_size: float = 12.0):
+    def __init__(self, canvas: tk.Canvas, cell_size: float = 26.0):
         self.canvas = canvas
         self.cell_size = cell_size
         self.offset_x = 0.0
@@ -66,6 +66,6 @@ class GridRenderer:
                 x1, y1, x2, y2 = self.world_to_screen(r, c)
                 if x2 < 0 or y2 < 0 or x1 > w or y1 > h:
                     continue
-                color = "#000000" if grid[r][c] else "#ffffff"
+                color = "#fff" if grid[r][c] else "#000"
                 rect_id = self.canvas.create_rectangle(x1, y1, x2, y2, fill=color, outline="#cccccc")
                 self._cell_rects.append(rect_id)
