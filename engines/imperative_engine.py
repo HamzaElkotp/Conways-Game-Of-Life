@@ -12,7 +12,10 @@ def next_generation(grid: Grid) -> Grid:
             total_alive = 0
 
             ## Count alive neighbors
-            upper = r-1, lower = r+1, left = c-1, right = c+1
+            upper = r-1
+            lower = r+1
+            left = c-1
+            right = c+1
             if(upper >= 0):
                 total_alive+=grid[upper][c] # get the upper cell 2
             if(lower < len(grid[0])):

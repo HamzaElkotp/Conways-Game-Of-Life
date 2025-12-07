@@ -9,8 +9,8 @@ from rendering.grid_renderer import GridRenderer
 Grid = Tuple[Tuple[int]]
 EngineName = str
 
-from engines.functional_engine import functional_next_generation
-from engines.imperative_engine import imperative_next_generation
+from engines.functional_engine import next_generation as functional_next_generation
+from engines.imperative_engine import next_generation as imperative_next_generation
 
 
 class SimulationPage:
