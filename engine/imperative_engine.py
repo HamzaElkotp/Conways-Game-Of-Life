@@ -2,205 +2,87 @@ from typing import Tuple
 
 Grid = Tuple[Tuple[int, ...], ...]  # 0 = dead, 1 = alive
 
-def next_generation(grid: Grid) -> Grid: # Heidy
-    """Reassign Grid with a new mutable grid representing the next generation."""
-    ...
-# Heidy Salem
-# 20230641
-# Conway's Game of Life - Imperative Version
+def next_generation(grid: Grid) -> Grid:
+    N = len(grid)
+    newGrid = [[0] * N for i in range(N)] # create empty list with initial value for all = 0
 
-#Imperative Engine Functions
-# next_generation()
-#	It doesn’t receive a grid; it accesses the global grid and reassigns it
-#	It doesn’t return a grid; it reassigns the global grid
-#	It does all the operations line by line, so we have one function that does everything in the needed order
+    for r in range(N):
+        for c in range(N):
+            state = grid[r][c]
+            total_alive = 0
+
+            ## Count alive neighbors
+            upper = r-1, lower = r+1, left = c-1, right = c+1
+            if(upper >= 0):
+                total_alive+=grid[upper][c] # get the upper cell 2
+            if(lower < len(grid[0])):
+                total_alive+=grid[lower][c] # get the lower cell 8
+            if(left >= 0):
+                total_alive+=grid[r][left] # get the left cell 4
+                if(lower < len(grid[0])):
+                    total_alive+=grid[lower][left] # get the lower left cell 7
+                if(upper >= 0):
+                    total_alive+=grid[upper][left] # get the upper left cell 1
+            if(right < len(grid[0])):
+                total_alive+=grid[r][right] # get the right cell
+                if(lower < len(grid[0])):
+                    total_alive+=grid[lower][right] # get the lower right cell
+                if(upper >= 0):
+                    total_alive+=grid[upper][right] # get the upper right cell
+
+            # Decide new state
+            if state:
+                if total_alive < 2:
+                    newGrid[r][c] = 0 # this line can be discareded
+                elif total_alive == 2 or total_alive == 3:
+                    newGrid[r][c] = 1
+                elif total_alive > 3: # this line can be discareded
+                    newGrid[r][c] = 0
+            else:
+                if total_alive == 3:
+                    newGrid[r][c] = 1
+    
+    return tuple(tuple(row) for row in newGrid) # convert again to tuple 
 
 
-#Imperative Engine Execution Flow
-#               next_generation()
-#       |
-#       ├─ Creates an empty grid
-#       ├─ iterate over all rows (x)
-#       │    └─ iterate over all columns (y)
-#       │          └─  For each cell
-#       │          	       ├─ Determine the current state of the current cell
-#       │                 ├─ Count alive neighbors for the chosen cell
-#       │                 ├─ Decide the new state based on the conditions
-#       │                 └─ Put the new state inside the empty grid
-#       │
-#       └─ Replace the old grid with the new grid (reassign)
 
-#Global Variables
-# grid: 2D list of integers representing the grid (0 for dead, 1 for alive)
-# rows_size: integer representing the size of rows of the grid
-# columns_size: integer representing the size of columns of the grid
 
-# create an empty grid
-def create_empty_grid(rows_size, columns_size):
-    grid = []  # to store the rows
 
-    for _ in range(rows_size):
-        row = []  # one row
-
-        for _ in range(columns_size):
-            row.append(0)  # add a cell with value 0 (dead)
-
-        grid.append(row)  # add the row to the grid
-
-    return grid
-
-g = create_empty_grid(3, 4)
-print(g)
-
+"""
 def determine_each_cell_state(grid, rows, columns):
-    state = []
-    for _ in range(rows):
-        row = []
-        for _ in range(columns):
-            if grid[rows][columns] == 0:
-                state.append("dead")
-            else:
-                state.append("alive")
-        state.append(row)
-    return state
+    return grid[rows][columns]
 
-#Function to count alive neighbors for the chosen cell
 def count_alive_neighbors(grid, rows, columns):
-#intialize the count of alive neighbors
-    alive_neighbors = 0
-    count_alive_neighbors = []
-    for _ in range(rows):
-        row = []
-        # in case of the cell in the corner the grid .
-        #  will be out of index so we need to check the index of the cell
-        # in case of the cell in the first row and first column
-        if i == 0 and j == 0:
-            if grid[i+1][j] == 1:
-                alive_neighbors += 1
-            if grid[i][j+1] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j+1] == 1:
-                alive_neighbors += 1
-            row.append(alive_neighbors)
-        count_alive_neighbors.append(row)
+    upper = rows-1
+    lower = rows+1
+    left = columns-1
+    right = columns+1
 
-        # in case of the cell in the last row and first column
-        if i == rows-1 and j == 0 :
-            if grid[i-1][j] == 1:
-                alive_neighbors += 1
-            if grid[i][j+1] == 1:
-                alive_neighbors += 1
-            if grid[i-1][j+1] == 1:
-                alive_neighbors += 1
-            row.append(alive_neighbors)
-        count_alive_neighbors.append(row)
+    sum = 0
 
-        # in case of the cell in the first row and last column
-        if i == 0 and j == columns-1:
-            if grid[i+1][j] == 1:
-                alive_neighbors += 1
-            if grid[i][j-1] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j-1] == 1:
-                alive_neighbors += 1
-            row.append(alive_neighbors)
-        count_alive_neighbors.append(row)
-
-        # in case of the cell in the last row and last column
-        if i == rows-1 and j == columns-1:
-            if grid[i-1][j] == 1:
-                alive_neighbors += 1
-            if grid[i][j-1] == 1:
-                alive_neighbors += 1
-            if grid[i-1][j-1] == 1:
-                alive_neighbors += 1
-            row.append(alive_neighbors)
-        count_alive_neighbors.append(row)
-
-        # in case of the cell in the first row and not in the corner
-        if i == 0 and j != 0 and j != columns-1:
-            if grid[i][j-1] == 1:
-                alive_neighbors += 1
-            if grid[i][j+1] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j-1] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j+1] == 1:
-                alive_neighbors += 1
-            row.append(alive_neighbors)
-        count_alive_neighbors.append(row)
-
-        # in case of the cell in the last row and not in the corner
-        if i == rows-1 and j != 0 and j != columns-1:
-            if grid[i-1][j-1] == 1:
-                alive_neighbors += 1
-            if grid[i-1][j] == 1:
-                alive_neighbors += 1
-            if grid[i-1][j+1] == 1:
-                alive_neighbors += 1
-            if grid[i][j-1] == 1:
-                alive_neighbors += 1
-            if grid[i][j+1] == 1:
-                alive_neighbors += 1
-            row.append(alive_neighbors)
-        count_alive_neighbors.append(row)
-
-        # in case of the cell in the last row and not in the corner
-        if j == 0 and i != rows-1 and  i != 0:
-            if grid[i-1][j] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j] == 1:
-                alive_neighbors += 1
-            if grid[i-1][j+1] == 1:
-                alive_neighbors += 1
-            if grid[i][j+1] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j+1] == 1:
-                alive_neighbors += 1
-            row.append(alive_neighbors)
-        count_alive_neighbors.append(row)
-        # in case of the cell in the last column and not in the corner
-        if j == columns-1 and i != rows-1 and  i != 0:
-            if grid[i-1][j] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j] == 1:
-                alive_neighbors += 1
-            if grid[i-1][j-1] == 1:
-                alive_neighbors += 1
-            if grid[i][j-1] == 1:
-                alive_neighbors += 1
-            if grid[i+1][j-1] == 1:
-                alive_neighbors += 1
-            row.append(alive_neighbors)
-        count_alive_neighbors.append(row)
-        # in case of the cell in the not in the first row and not in the la
-        for i in range(rows-1, rows+1):
-            for j in range(columns-1, columns+1):
-                if i >= 0 and i < rows and j >= 0 and j < columns:
-                    if grid[i][j] == 1:
-                        alive_neighbors += 1
-                    row.append(alive_neighbors)
-                count_alive_neighbors.append(row)
-    return count_alive_neighbors
-
-count_alive_neighbors_grid = count_alive_neighbors(g, 3, 4)
-print(count_alive_neighbors_grid)
-
-def new_state(count_alive_neighbors_grid, grid, rows, columns):
-    new_state = []
-    for _ in range(rows):
-        for _ in range(columns):
-            if grid[rows][columns] == 0:
-                if count_alive_neighbors_grid[rows][columns] < 2:
-                    new_state.append("dead")
-                elif count_alive_neighbors_grid[rows][columns] > 3:
-                    new_state.append("dead")
-                else:
-                    new_state.append("alive")
-            else:
-                if count_alive_neighbors_grid[rows][columns] == 3:
-                    new_state.append("alive")
-    grid=new_state
-    return grid
+    if(upper >= 0):
+        print(grid[upper][columns])
+        sum+=grid[upper][columns] # get the upper cell 2
+    if(lower < len(grid[0])):
+        print(grid[lower][columns])
+        sum+=grid[lower][columns] # get the lower cell 8
+    if(left >= 0):
+        print(grid[rows][left])
+        sum+=grid[rows][left] # get the left cell 4
+        if(lower < len(grid[0])):
+            print(grid[lower][left])
+            sum+=grid[lower][left] # get the lower left cell 7
+        if(upper >= 0):
+            print(grid[upper][left])
+            sum+=grid[upper][left] # get the upper left cell 1
+    if(right < len(grid[0])):
+        print(grid[rows][right])
+        sum+=grid[rows][right] # get the right cell
+        if(lower < len(grid[0])):
+            print(grid[lower][right])
+            sum+=grid[lower][right] # get the lower right cell
+        if(upper >= 0):
+            print(grid[upper][right])
+            sum+=grid[upper][right] # get the upper right cell
+    return sum
+"""
