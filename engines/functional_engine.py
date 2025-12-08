@@ -79,6 +79,28 @@ res = array_reduce(neighbors, count_neighbors_with_accumelator, 0, 0, 1, 1, meow
 print(res)
 """
 
+"""
+########## METHOD5: Not better than ours (uses Built-in Higher order function + Tail Recursive)
+##########
+"""
+def add(x, y):
+    return x+y
+
+def count_neighbors_with_reduce(grid:Grid, row:int, col:int):
+    return reduce(
+        lambda accumelator, 
+        current: accumelator+get_cell(grid, row + current[0], col + current[1]), 
+        neighbors,
+        0
+    )
+
+"""
+meow:Grid = [[1,2,3], [4,5,6], [7,8,9]]
+res = count_neighbors_with_reduce(meow, 1, 1)
+print(res)
+"""
+
+
 def next_state(current_state: int, neighbors: int):
     if current_state == 1 and neighbors < 2: # (underpopulation)
         return 0
