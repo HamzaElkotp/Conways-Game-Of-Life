@@ -90,8 +90,6 @@ class EditorPage:
         self.manager.switch_to_engine_selection()
 
     def redraw(self):
-        print("from editpage")
-        print(tuple(tuple(row) for row in self.buffer))
         self.renderer.draw_grid(tuple(tuple(row) for row in self.buffer))
 
     def get_configured_grid(self) -> Grid:

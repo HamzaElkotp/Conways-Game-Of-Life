@@ -118,9 +118,7 @@ def next_generation(grid: Grid) -> Grid:
     return tuple(
         tuple(
             next_state(
-                get_cell(grid, x, y),
-
-                
+                get_cell(grid, x, y),                
                 ###Try any implementation, all will give same results insha'Allah
                 #count_neighbors(grid, x, y)
                 #count_neighbors_recursive(grid, x, y)

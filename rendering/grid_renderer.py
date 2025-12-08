@@ -54,7 +54,6 @@ class GridRenderer:
 
     def draw_grid(self, grid: Grid) -> None:
         self.clear()
-        print(grid)
         rows = len(grid)
         cols = len(grid[0]) if rows > 0 else 0
         h = int(self.canvas.winfo_height())

@@ -106,8 +106,6 @@ class SimulationPage:
         self.schedule_next()
 
     def redraw(self):
-        print("from simpage")
-        print(self.grid)
         self.renderer.draw_grid(self.grid)
 
     def destroy(self):
