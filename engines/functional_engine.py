@@ -62,13 +62,13 @@ def count_neighbors_tail_recursive(grid: Grid, row: int, col: int, indx:int = 0,
 - Hamza M. Elkotb, A CS Student @ FCAIH.
 """
 def array_reduce(array, operation_func, accumulator:int, indx:int, *args, **kwargs):
-    if(indx>=len(array)):
+    if(indx>=8):
         return accumulator
     new_acc = operation_func(accumulator, array[indx], *args, **kwargs) # pass accumulator and current
     return array_reduce(array, operation_func, new_acc, indx+1, *args, **kwargs)
 
-def count_neighbors_with_accumelator(accumulator:int, array, row:int, col:int, grid:Grid):
-    return accumulator + get_cell(grid, row + array[0], col + array[1])
+def count_neighbors_with_accumelator(accumulator:int, item, row:int, col:int, grid:Grid):
+    return accumulator + get_cell(grid, row + item[0], col + item[1])
 
 """
 # Example of usage
@@ -81,9 +81,6 @@ print(res)
 ########## METHOD5: Not better than ours (uses Built-in Higher order function + Tail Recursive)
 ##########
 """
-def add(x, y):
-    return x+y
-
 def count_neighbors_with_reduce(grid:Grid, row:int, col:int):
     return reduce(
         lambda accumelator, 
